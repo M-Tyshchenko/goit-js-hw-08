@@ -8,9 +8,6 @@ const LOCALSTORAGE_KEY = "feedback-form-state";
 
 const formDataObj = {};
 
-const formMessageOutput = localStorage.getItem(LOCALSTORAGE_KEY);
-const parsedFormMessage = JSON.parse(formMessageOutput);
-
 formOutput();
 
 form.addEventListener('input', throttle(onFormInput, 500))
@@ -18,7 +15,7 @@ form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(event) {
     event.preventDefault();
-    console.log(parsedFormMessage);
+    formOutput();
     form.reset();
     localStorage.removeItem(LOCALSTORAGE_KEY);
     
@@ -31,8 +28,11 @@ function onFormInput(event) {
 }
 
 function formOutput() {
+    const formMessageOutput = localStorage.getItem(LOCALSTORAGE_KEY) || "";
     if (formMessageOutput) { 
-       
+        const parsedFormMessage = JSON.parse(formMessageOutput);
+        console.log(parsedFormMessage);
+        
         formInput.value = parsedFormMessage.email;
         textarea.value = parsedFormMessage.message;
     }

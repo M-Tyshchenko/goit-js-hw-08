@@ -4,6 +4,9 @@ const form = document.querySelector('.feedback-form');
 const textarea = document.querySelector('textarea');
 const formInput = document.querySelector('input');
 
+textarea.setAttribute("required", "required");
+formInput.setAttribute("required", "required");
+
 const LOCALSTORAGE_KEY = "feedback-form-state";
 
 let formDataObj = {};
@@ -11,10 +14,13 @@ let formDataObj = {};
 formOutput();
 
 form.addEventListener('input', throttle(onFormInput, 500))
+
 form.addEventListener('submit', onFormSubmit);
 
+
 function onFormSubmit(event) {
-    event.preventDefault();    
+    event.preventDefault();
+    
     formOutput();
     form.reset();  
     localStorage.removeItem(LOCALSTORAGE_KEY);
